@@ -16,6 +16,33 @@
                     <input type="text" formControlName="email" id="email" class="form-control">
                 </div>
             </div>
+
+            <div formGroupName="skills">
+            <div class="form-group">
+                <label for="skillName" class="col-sm-2 control-label">Skill</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="skillName" placeholder="Name" formControlName="skillName">
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="Experience in years" formControlName="experienceInYears">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Proficiency</label>
+                <div class="col-md-8">
+                    <label class="radio-inline">
+                        <input type="radio" id="proficiency" value="Beginner" formControlName="proficiency">Beginner
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="proficiency" value="Intermediate" formControlName="proficiency">Intermediate
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="proficiency" value="Advance" formControlName="proficiency">Advance
+                    </label>
+                </div>
+            </div>
+        </div>
+
             <div class="panel-footer">
                 <button class="btn btn-primary" type="submit">Save</button>
             </div>
