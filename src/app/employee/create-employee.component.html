@@ -22,3 +22,24 @@
         </div>
     </div>
 </form>
+
+<table>
+    <tr>
+        <th style="padding: 10px">FormedGroup</th>
+        <th style="padding: 10px">FormedControl (fullName)</th>
+    </tr>
+    <tr>
+        <td style="padding: 10px;">
+        touched: {{ employeeForm.touched }}
+        <br/> dirty: {{ employeeForm.dirty }}
+        <br/> valid: {{ employeeForm.valid }}
+        <br/> Form Values: {{ employeeForm.value | json}}
+    </td>
+    <td style="padding: 10px;">
+        touched: {{ employeeForm.get('fullName').touched }}
+        <br/> dirty: {{ employeeForm.get('fullName').dirty }}
+        <br/> valid: {{ employeeForm.get('fullName').valid }}
+        <br/> Full Name Value: {{ employeeForm.get('fullName').value}}
+    </td>
+    </tr>
+</table>
