@@ -33,16 +33,23 @@ export class CreateEmployeeComponent implements OnInit {
     })
   }
 
-  onLoadDataClick(): void{
-    this.employeeForm.patchValue({ // To update all the values in form use setValue or to update only some part of the form use patchValue
-      fullName: 'vishal',
-      email: 'lotlikar18@gmail.com',
-      skills: {
-        skillName: 'a',
-        experienceInYears: 5,
-        proficiency: 'Beginner'
+  logKeyValuePairs(group: FormGroup): void{
+    Object.keys(group.controls).forEach((key: string) => {
+      const abstractControl = group.get(key)
+      if(abstractControl instanceof FormGroup){ // if nested form group is an instance of abstractControl
+        this.logKeyValuePairs(abstractControl)
+        abstractControl.disable()
+      }
+      else{
+        //abstractControl.disable()
+        console.log('Key = '+ key + 'Value = ' + abstractControl.value)
+        abstractControl.markAsDirty();
       }
     })
+  }
+
+  onLoadDataClick(): void{
+    this.logKeyValuePairs(this.employeeForm)
   }
 
   onSubmit(): void {
