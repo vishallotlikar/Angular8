@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-create-employee',
@@ -8,6 +10,35 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 })
 export class CreateEmployeeComponent implements OnInit {
   employeeForm: FormGroup;
+  //fullNameLength = 0;
+
+  validationMessages = {
+    'fullName': {
+      'required': 'Full Name is required.',
+      'minlength': 'Full Name must be greater than 2 characters.',
+      'maxlength': 'Full Name must be less than 10 characters.'
+    },
+    'email': {
+      'requied': 'Email is required.'
+    },
+    'skillName': {
+      'requied': 'Skill Name is required.'
+    },
+    'experienceInYears': {
+      'requied': 'Experience Name is required.'
+    },
+    'proficiency': {
+      'requied': 'Proficiency Name is required.'
+    },
+  };
+
+  formErrors = {
+    'fullName': '',
+    'email': '',
+    'skillName': '',
+    'experienceInYears': '',
+    'proficiency': ''
+  };
 
   constructor(private fb: FormBuilder) { }
 
@@ -24,12 +55,17 @@ export class CreateEmployeeComponent implements OnInit {
 
     this.employeeForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
-      email: [''],
+      email: ['', [Validators.required, Validators.email]],
       skills: this.fb.group({
-        skillName: [''],
-        experienceInYears: [''],
-        proficiency: ['Beginner']
+        skillName: ['', [Validators.required]],
+        experienceInYears: ['', [Validators.required]],
+        proficiency: ['', [Validators.required]]
       })
+    })
+
+    this.employeeForm.get("skills").valueChanges.subscribe(
+      (value: any) => {
+      console.log(JSON.stringify(value));
     })
   }
 
