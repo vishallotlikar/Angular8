@@ -69,31 +69,40 @@ export class CreateEmployeeComponent implements OnInit {
     })
   }
 
-  logKeyValuePairs(group: FormGroup): void{
+  logKeyValidationErrors(group: FormGroup): void{
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key)
       if(abstractControl instanceof FormGroup){ // if nested form group is an instance of abstractControl
-        this.logKeyValuePairs(abstractControl)
+        this.logKeyValidationErrors(abstractControl)
         abstractControl.disable()
       }
       else{
+        this.formErrors[key] = '';
         //abstractControl.disable()
         console.log('Key = '+ key + 'Value = ' + abstractControl.value)
-        abstractControl.markAsDirty();
+        if (abstractControl && !abstractControl.valid){
+          const messages = this.validationMessages[key];
+          for (const errorKey in abstractControl.errors){
+            if (errorKey){
+              this.formErrors[key] += messages[errorKey] + ' ';
+            }
+          };
+        }
       }
     })
   }
 
   onLoadDataClick(): void{
-    this.logKeyValuePairs(this.employeeForm)
+    this.logKeyValidationErrors(this.employeeForm);
+    console.log(this.formErrors)
   }
 
   onSubmit(): void {
-    console.log(this.employeeForm.touched)
+    /* console.log(this.employeeForm.touched)
     console.log(this.employeeForm.value)
 
     console.log(this.employeeForm.controls.fullName.touched)
-    console.log(this.employeeForm.get("fullName").value)
+    console.log(this.employeeForm.get("fullName").value) */
 
   }
 
