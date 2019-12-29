@@ -19,16 +19,16 @@ export class CreateEmployeeComponent implements OnInit {
       'maxlength': 'Full Name must be less than 10 characters.'
     },
     'email': {
-      'requied': 'Email is required.'
+      'required': 'Email is required.'
     },
     'skillName': {
-      'requied': 'Skill Name is required.'
+      'required': 'Skill Name is required.'
     },
     'experienceInYears': {
-      'requied': 'Experience Name is required.'
+      'required': 'Experience Name is required.'
     },
     'proficiency': {
-      'requied': 'Proficiency Name is required.'
+      'required': 'Proficiency Name is required.'
     },
   };
 
@@ -57,44 +57,51 @@ export class CreateEmployeeComponent implements OnInit {
       fullName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
       email: ['', [Validators.required, Validators.email]],
       skills: this.fb.group({
-        skillName: ['', [Validators.required]],
-        experienceInYears: ['', [Validators.required]],
-        proficiency: ['', [Validators.required]]
+        skillName: ['', Validators.required],
+        experienceInYears: ['', Validators.required],
+        proficiency: ['', Validators.required]
       })
     })
 
-    this.employeeForm.get("skills").valueChanges.subscribe(
-      (value: any) => {
-      console.log(JSON.stringify(value));
+    // this.employeeForm.get("skills").valueChanges.subscribe(
+    //   (value: any) => {
+    //   // console.log(JSON.stringify(value));
+    // })
+
+    this.employeeForm.valueChanges.subscribe(
+      (data) => {
+        this.logValidationErrors(this.employeeForm);
+      // console.log(JSON.stringify(value));
     })
   }
 
-  logKeyValidationErrors(group: FormGroup): void{
+  logValidationErrors(group: FormGroup = this.employeeForm): void{
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key)
       if(abstractControl instanceof FormGroup){ // if nested form group is an instance of abstractControl
-        this.logKeyValidationErrors(abstractControl)
-        abstractControl.disable()
+        this.logValidationErrors(abstractControl)
+        // abstractControl.disable()
       }
       else{
         this.formErrors[key] = '';
         //abstractControl.disable()
-        console.log('Key = '+ key + 'Value = ' + abstractControl.value)
-        if (abstractControl && !abstractControl.valid){
+        // console.log('Key = '+ key + 'Value = ' + abstractControl.value)
+        if (abstractControl && !abstractControl.valid && (abstractControl.touched || abstractControl.dirty)){
           const messages = this.validationMessages[key];
+          // console.log(messages);
           for (const errorKey in abstractControl.errors){
             if (errorKey){
               this.formErrors[key] += messages[errorKey] + ' ';
             }
-          };
+          }
         }
       }
     })
   }
 
   onLoadDataClick(): void{
-    this.logKeyValidationErrors(this.employeeForm);
-    console.log(this.formErrors)
+    // this.logValidationErrors(this.employeeForm);
+    // console.log(this.formErrors)
   }
 
   onSubmit(): void {
