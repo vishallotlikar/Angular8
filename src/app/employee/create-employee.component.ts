@@ -19,16 +19,17 @@ export class CreateEmployeeComponent implements OnInit {
       'maxlength': 'Full Name must be less than 10 characters.'
     },
     'email': {
-      'required': 'Email is required.'
+      'required': 'Email is required.',
+      'email': 'Please enter valid email ID.'
     },
     'skillName': {
-      'required': 'Skill Name is required.'
+      'required': 'Skill is required.'
     },
     'experienceInYears': {
-      'required': 'Experience Name is required.'
+      'required': 'Experience is required.'
     },
     'proficiency': {
-      'required': 'Proficiency Name is required.'
+      'required': 'Proficiency is required.'
     },
   };
 
