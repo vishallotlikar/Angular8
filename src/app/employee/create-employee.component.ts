@@ -22,6 +22,9 @@ export class CreateEmployeeComponent implements OnInit {
       'required': 'Email is required.',
       'email': 'Please enter valid email ID.'
     },
+    'phone': {
+      'required': 'Phone is required.'
+    },
     'skillName': {
       'required': 'Skill is required.'
     },
@@ -36,6 +39,7 @@ export class CreateEmployeeComponent implements OnInit {
   formErrors = {
     'fullName': '',
     'email': '',
+    'phone': '',
     'skillName': '',
     'experienceInYears': '',
     'proficiency': ''
@@ -56,7 +60,9 @@ export class CreateEmployeeComponent implements OnInit {
 
     this.employeeForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
+      contactPreference: ['email'],
       email: ['', [Validators.required, Validators.email]],
+      phone: [''],
       skills: this.fb.group({
         skillName: ['', Validators.required],
         experienceInYears: ['', Validators.required],
@@ -64,16 +70,30 @@ export class CreateEmployeeComponent implements OnInit {
       })
     })
 
+    this.employeeForm.get('contactPreference').valueChanges.subscribe((data: string) => {
+      this.onContactPreferenceChange(data);
+    });
+
     // this.employeeForm.get("skills").valueChanges.subscribe(
     //   (value: any) => {
     //   // console.log(JSON.stringify(value));
     // })
 
-    this.employeeForm.valueChanges.subscribe(
-      (data) => {
+    this.employeeForm.valueChanges.subscribe((data) => {
         this.logValidationErrors(this.employeeForm);
       // console.log(JSON.stringify(value));
     })
+  }
+
+  onContactPreferenceChange(selectedValue: string){
+    const phoneControl = this.employeeForm.get('phone');
+    if (selectedValue === 'phone'){
+      console.log('selectedValue', selectedValue)
+      phoneControl.setValidators(Validators.required);
+    } else {
+      phoneControl.clearValidators();
+    }
+    phoneControl.updateValueAndValidity();
   }
 
   logValidationErrors(group: FormGroup = this.employeeForm): void{
