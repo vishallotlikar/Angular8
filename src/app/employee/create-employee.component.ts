@@ -73,7 +73,7 @@ export class CreateEmployeeComponent implements OnInit {
       emailGroup: this.fb.group({
         email: ['', [Validators.required, Validators.email, emailDomain]],
         confirmEmail: ['', Validators.required],
-      }, {validator: matchEmail}),
+      }, { validator: matchEmail }),
       phone: ['', Validators.required],
       skills: this.fb.array([
         this.addSkillFormGroup()
@@ -103,7 +103,7 @@ export class CreateEmployeeComponent implements OnInit {
     })
   }
 
-  addSkillButtonClick():void {
+  addSkillButtonClick(): void {
     (<FormArray>this.employeeForm.get('skills')).push(this.addSkillFormGroup());
   }
 
@@ -140,8 +140,8 @@ export class CreateEmployeeComponent implements OnInit {
         // abstractControl.disable()
       }
       if (abstractControl instanceof FormArray) { // if nested form group is an instance of abstractControl
-        for (const control of abstractControl.controls){
-          if (control instanceof FormGroup){
+        for (const control of abstractControl.controls) {
+          if (control instanceof FormGroup) {
             this.logValidationErrors(control)
           }
         }

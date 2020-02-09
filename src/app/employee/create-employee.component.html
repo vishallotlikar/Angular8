@@ -88,11 +88,11 @@
                 <div formArrayName="skills" *ngFor="let skill of employeeForm.get('skills').controls; let i = index">
                     <div [formGroupName]="i">
                         <div class="form-group" [ngClass]="{'has-error': formErrors.skillName}">
-                            <label for="skillName" class="col-sm-2 control-label">
+                            <label [attr.for]="'skillName'+i" class="col-sm-2 control-label">
                                 Skill
                             </label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="skillName"
+                                <input type="text" class="form-control" [id]="'skillName'+i"
                                     placeholder="C#, Java, Angular etc..." formControlName="skillName"
                                     (blur)="logValidationErrors()">
                                 <span class="help-block" *ngIf="formErrors.skillName">
@@ -102,10 +102,11 @@
                         </div>
 
                         <div class="form-group" [ngClass]="{'has-error': formErrors.experienceInYears}">
-                            <label for="experienceInYears" class="col-sm-2 control-label">Experience</label>
+                            <label [attr.for]="'experienceInYears'+i" class="col-sm-2 control-label">Experience</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" placeholder="Experience in years"
-                                    formControlName="experienceInYears" (blur)="logValidationErrors()">
+                                <input type="text" class="form-control" [id]="'experienceInYears'+i"
+                                    placeholder="Experience in years" formControlName="experienceInYears"
+                                    (blur)="logValidationErrors()">
                                 <span class="help-block" *ngIf="formErrors.experienceInYears">
                                     {{formErrors.experienceInYears}}
                                 </span>
