@@ -23,6 +23,12 @@ export class CreateEmployeeComponent implements OnInit {
       'email': 'Please enter valid email ID.',
       'emailDomain': 'Email domain should be gmail.com'
     },
+    'confirmEmail': {
+      'required': 'Confirm Email is required.'
+    },
+    'emailGroup': {
+      'emailMismatch': 'Email and Confirm Email do not match'
+    },
     'phone': {
       'required': 'Phone is required.'
     },
@@ -40,6 +46,8 @@ export class CreateEmployeeComponent implements OnInit {
   formErrors = {
     'fullName': '',
     'email': '',
+    'confirmEmail': '',
+    'emailGroup': '',
     'phone': '',
     'skillName': '',
     'experienceInYears': '',
@@ -62,7 +70,10 @@ export class CreateEmployeeComponent implements OnInit {
     this.employeeForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
       contactPreference: ['email'],
-      email: ['', [Validators.required, Validators.email, emailDomain]],
+      emailGroup: this.fb.group({
+        email: ['', [Validators.required, Validators.email, emailDomain]],
+        confirmEmail: ['', Validators.required],
+      }, {validator: matchEmail}),
       phone: [''],
       skills: this.fb.group({
         skillName: ['', Validators.required],
@@ -81,14 +92,14 @@ export class CreateEmployeeComponent implements OnInit {
     // })
 
     this.employeeForm.valueChanges.subscribe((data) => {
-        this.logValidationErrors(this.employeeForm);
+      this.logValidationErrors(this.employeeForm);
       // console.log(JSON.stringify(value));
     })
   }
 
-  onContactPreferenceChange(selectedValue: string){
+  onContactPreferenceChange(selectedValue: string) {
     const phoneControl = this.employeeForm.get('phone');
-    if (selectedValue === 'phone'){
+    if (selectedValue === 'phone') {
       console.log('selectedValue', selectedValue)
       phoneControl.setValidators(Validators.required);
     } else {
@@ -97,31 +108,31 @@ export class CreateEmployeeComponent implements OnInit {
     phoneControl.updateValueAndValidity();
   }
 
-  logValidationErrors(group: FormGroup = this.employeeForm): void{
+  logValidationErrors(group: FormGroup = this.employeeForm): void {
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key)
-      if(abstractControl instanceof FormGroup){ // if nested form group is an instance of abstractControl
-        this.logValidationErrors(abstractControl)
-        // abstractControl.disable()
-      }
-      else{
-        this.formErrors[key] = '';
-        //abstractControl.disable()
-        // console.log('Key = '+ key + 'Value = ' + abstractControl.value)
-        if (abstractControl && !abstractControl.valid && (abstractControl.touched || abstractControl.dirty)){
-          const messages = this.validationMessages[key];
-          // console.log(messages);
-          for (const errorKey in abstractControl.errors){
-            if (errorKey){
-              this.formErrors[key] += messages[errorKey] + ' ';
-            }
+
+      this.formErrors[key] = '';
+      //abstractControl.disable()
+      // console.log('Key = '+ key + 'Value = ' + abstractControl.value)
+      if (abstractControl && !abstractControl.valid && (abstractControl.touched || abstractControl.dirty)) {
+        const messages = this.validationMessages[key];
+        // console.log(messages);
+        for (const errorKey in abstractControl.errors) {
+          if (errorKey) {
+            this.formErrors[key] += messages[errorKey] + ' ';
           }
         }
+      }
+
+      if (abstractControl instanceof FormGroup) { // if nested form group is an instance of abstractControl
+        this.logValidationErrors(abstractControl)
+        // abstractControl.disable()
       }
     })
   }
 
-  onLoadDataClick(): void{
+  onLoadDataClick(): void {
     // this.logValidationErrors(this.employeeForm);
     // console.log(this.formErrors)
   }
@@ -137,12 +148,23 @@ export class CreateEmployeeComponent implements OnInit {
 
 }
 
-function emailDomain(control: AbstractControl): {[key: string]: any} | null {
+function emailDomain(control: AbstractControl): { [key: string]: any } | null {
   const email: string = control.value;
   const domain = email.substring(email.lastIndexOf('@') + 1);
-  if (email === '' || domain.toLowerCase() === 'gmail.com'){
+  if (email === '' || domain.toLowerCase() === 'gmail.com') {
     return null;
-  } else{
-    return {'emailDomain': true};
+  } else {
+    return { 'emailDomain': true };
+  }
+}
+
+function matchEmail(group: AbstractControl): { [key: string]: any } | null {
+  const emailControl = group.get('email');
+  const confirmEmailControl = group.get('confirmEmail');
+
+  if (emailControl.value === confirmEmailControl.value || confirmEmailControl.pristine) {
+    return null;
+  } else {
+    return { 'emailMismatch': true };
   }
 }
