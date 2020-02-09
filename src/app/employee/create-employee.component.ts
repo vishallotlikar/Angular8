@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
+import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray, FormControl } from '@angular/forms'
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { JsonPipe } from '@angular/common';
 
@@ -133,8 +133,20 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   onLoadDataClick(): void {
-    // this.logValidationErrors(this.employeeForm);
-    // console.log(this.formErrors)
+    const formArray1 = this.fb.array([
+      new FormControl('Vishal', Validators.required),
+      new FormControl('IT', Validators.required),
+      new FormControl('Male', Validators.required)
+    ])
+    const FormGroup = this.fb.group([
+      new FormControl('Vishal', Validators.required),
+      new FormControl('IT', Validators.required),
+      new FormControl('Male', Validators.required)
+    ])
+    // formArray1.push(new FormControl('Lotlikar', Validators.required));
+    // console.log(formArray1.at(3).value)
+    console.log(formArray1)
+    console.log(FormGroup)
   }
 
   onSubmit(): void {
