@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { JsonPipe } from '@angular/common';
 
@@ -20,7 +20,8 @@ export class CreateEmployeeComponent implements OnInit {
     },
     'email': {
       'required': 'Email is required.',
-      'email': 'Please enter valid email ID.'
+      'email': 'Please enter valid email ID.',
+      'emailDomain': 'Email domain should be gmail.com'
     },
     'phone': {
       'required': 'Phone is required.'
@@ -61,7 +62,7 @@ export class CreateEmployeeComponent implements OnInit {
     this.employeeForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
       contactPreference: ['email'],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email, emailDomain]],
       phone: [''],
       skills: this.fb.group({
         skillName: ['', Validators.required],
@@ -134,4 +135,14 @@ export class CreateEmployeeComponent implements OnInit {
 
   }
 
+}
+
+function emailDomain(control: AbstractControl): {[key: string]: any} | null {
+  const email: string = control.value;
+  const domain = email.substring(email.lastIndexOf('@') + 1);
+  if (email === '' || domain.toLowerCase() === 'gmail.com'){
+    return null;
+  } else{
+    return {'emailDomain': true};
+  }
 }
