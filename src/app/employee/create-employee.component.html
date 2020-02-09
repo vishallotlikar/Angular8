@@ -77,54 +77,58 @@
                 </div>
             </div>
 
-            <div formGroupName="skills">
-                <div class="form-group" [ngClass]="{'has-error': formErrors.skillName}">
-                    <label for="skillName" class="col-sm-2 control-label">
-                        Skill
-                    </label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" id="skillName" placeholder="C#, Java, Angular etc..."
-                            formControlName="skillName" (blur)="logValidationErrors()">
-                        <span class="help-block" *ngIf="formErrors.skillName">
-                            {{formErrors.skillName}}
-                        </span>
-                    </div>
-                </div>
-
-                <div class="form-group" [ngClass]="{'has-error': formErrors.experienceInYears}">
-                    <label for="experienceInYears" class="col-sm-2 control-label">Experience</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" placeholder="Experience in years"
-                            formControlName="experienceInYears" (blur)="logValidationErrors()">
-                        <span class="help-block" *ngIf="formErrors.experienceInYears">
-                            {{formErrors.experienceInYears}}
-                        </span>
-                    </div>
-                </div>
-
-                <div class="form-group" [ngClass]="{'has-error': formErrors.proficiency}">
-                    <label class="col-md-2 control-label">
-                        Proficiency
-                    </label>
-                    <div class="col-md-8">
-                        <label class="radio-inline">
-                            <input type="radio" value="Beginner" formControlName="proficiency"
-                                (blur)="logValidationErrors()">
-                            Beginner
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" value="Intermediate" formControlName="proficiency"
-                                (blur)="logValidationErrors()">
-                            Intermediate
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" value="Advance" formControlName="proficiency"
-                                (blur)="logValidationErrors()">
-                            Advance
-                        </label>
-                        <span class="help-block" *ngIf="formErrors.proficiency">
-                            {{formErrors.proficiency}}
-                        </span>
+            <div class="well">
+                <div formArrayName="skills">
+                    <div formGroupName="0">
+                        <div class="form-group" [ngClass]="{'has-error': formErrors.skillName}">
+                            <label for="skillName" class="col-sm-2 control-label">
+                                Skill
+                            </label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="skillName" placeholder="C#, Java, Angular etc..."
+                                    formControlName="skillName" (blur)="logValidationErrors()">
+                                <span class="help-block" *ngIf="formErrors.skillName">
+                                    {{formErrors.skillName}}
+                                </span>
+                            </div>
+                        </div>
+        
+                        <div class="form-group" [ngClass]="{'has-error': formErrors.experienceInYears}">
+                            <label for="experienceInYears" class="col-sm-2 control-label">Experience</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" placeholder="Experience in years"
+                                    formControlName="experienceInYears" (blur)="logValidationErrors()">
+                                <span class="help-block" *ngIf="formErrors.experienceInYears">
+                                    {{formErrors.experienceInYears}}
+                                </span>
+                            </div>
+                        </div>
+        
+                        <div class="form-group" [ngClass]="{'has-error': formErrors.proficiency}">
+                            <label class="col-md-2 control-label">
+                                Proficiency
+                            </label>
+                            <div class="col-md-8">
+                                <label class="radio-inline">
+                                    <input type="radio" value="Beginner" formControlName="proficiency"
+                                        (blur)="logValidationErrors()">
+                                    Beginner
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="Intermediate" formControlName="proficiency"
+                                        (blur)="logValidationErrors()">
+                                    Intermediate
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="Advance" formControlName="proficiency"
+                                        (blur)="logValidationErrors()">
+                                    Advance
+                                </label>
+                                <span class="help-block" *ngIf="formErrors.proficiency">
+                                    {{formErrors.proficiency}}
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -74,12 +74,10 @@ export class CreateEmployeeComponent implements OnInit {
         email: ['', [Validators.required, Validators.email, emailDomain]],
         confirmEmail: ['', Validators.required],
       }, {validator: matchEmail}),
-      phone: [''],
-      skills: this.fb.group({
-        skillName: ['', Validators.required],
-        experienceInYears: ['', Validators.required],
-        proficiency: ['', Validators.required]
-      })
+      phone: ['', Validators.required],
+      skills: this.fb.array([
+        this.addSkillFormGroup()
+      ])
     })
 
     this.employeeForm.get('contactPreference').valueChanges.subscribe((data: string) => {
@@ -94,6 +92,14 @@ export class CreateEmployeeComponent implements OnInit {
     this.employeeForm.valueChanges.subscribe((data) => {
       this.logValidationErrors(this.employeeForm);
       // console.log(JSON.stringify(value));
+    })
+  }
+
+  addSkillFormGroup(): FormGroup {
+    return this.fb.group({
+      skillName: ['', Validators.required],
+      experienceInYears: ['', Validators.required],
+      proficiency: ['', Validators.required]
     })
   }
 
@@ -128,6 +134,13 @@ export class CreateEmployeeComponent implements OnInit {
       if (abstractControl instanceof FormGroup) { // if nested form group is an instance of abstractControl
         this.logValidationErrors(abstractControl)
         // abstractControl.disable()
+      }
+      if (abstractControl instanceof FormArray) { // if nested form group is an instance of abstractControl
+        for (const control of abstractControl.controls){
+          if (control instanceof FormGroup){
+            this.logValidationErrors(control)
+          }
+        }
       }
     })
   }
