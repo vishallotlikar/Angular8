@@ -31,27 +31,10 @@ export class CreateEmployeeComponent implements OnInit {
     },
     'phone': {
       'required': 'Phone is required.'
-    },
-    'skillName': {
-      'required': 'Skill is required.'
-    },
-    'experienceInYears': {
-      'required': 'Experience is required.'
-    },
-    'proficiency': {
-      'required': 'Proficiency is required.'
-    },
+    }
   };
 
   formErrors = {
-    'fullName': '',
-    'email': '',
-    'confirmEmail': '',
-    'emailGroup': '',
-    'phone': '',
-    'skillName': '',
-    'experienceInYears': '',
-    'proficiency': ''
   };
 
   constructor(private fb: FormBuilder) { }
@@ -138,13 +121,6 @@ export class CreateEmployeeComponent implements OnInit {
       if (abstractControl instanceof FormGroup) { // if nested form group is an instance of abstractControl
         this.logValidationErrors(abstractControl)
         // abstractControl.disable()
-      }
-      if (abstractControl instanceof FormArray) { // if nested form group is an instance of abstractControl
-        for (const control of abstractControl.controls) {
-          if (control instanceof FormGroup) {
-            this.logValidationErrors(control)
-          }
-        }
       }
     })
   }
