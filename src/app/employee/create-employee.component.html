@@ -80,38 +80,45 @@
             <div class="well">
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-4">
-                        <button type="button" class="btn btn-primary" (click)="addSkillButtonClick()">
+                        <button type="button" class="btn btn-primary" (click)="addSkillButtonClick()"
+                            [disabled]="employeeForm.get('skills').invalid">
                             Add Skill
                         </button>
                     </div>
                 </div>
                 <div formArrayName="skills" *ngFor="let skill of employeeForm.get('skills').controls; let i = index">
+                    <hr *ngIf="i>0">
                     <div [formGroupName]="i">
-                        <div class="form-group" [ngClass]="{'has-error': skill.get('skillName').invalid && skill.get('skillName').touched}">
+                        <div class="form-group"
+                            [ngClass]="{'has-error': skill.get('skillName').invalid && skill.get('skillName').touched}">
                             <label [attr.for]="'skillName'+i" class="col-sm-2 control-label">
                                 Skill
                             </label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control" [id]="'skillName'+i"
                                     placeholder="C#, Java, Angular etc..." formControlName="skillName">
-                                <span class="help-block" *ngIf="skill.get('skillName').errors?.required && skill.get('skillName').touched">
+                                <span class="help-block"
+                                    *ngIf="skill.get('skillName').errors?.required && skill.get('skillName').touched">
                                     Skill Name is requires.
                                 </span>
                             </div>
                         </div>
 
-                        <div class="form-group" [ngClass]="{'has-error': skill.get('experienceInYears').invalid && skill.get('experienceInYears').touched}">
+                        <div class="form-group"
+                            [ngClass]="{'has-error': skill.get('experienceInYears').invalid && skill.get('experienceInYears').touched}">
                             <label [attr.for]="'experienceInYears'+i" class="col-sm-2 control-label">Experience</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control" [id]="'experienceInYears'+i"
                                     placeholder="Experience in years" formControlName="experienceInYears">
-                                <span class="help-block" *ngIf="skill.get('experienceInYears').errors?.required && skill.get('experienceInYears').touched">
+                                <span class="help-block"
+                                    *ngIf="skill.get('experienceInYears').errors?.required && skill.get('experienceInYears').touched">
                                     Experience is required.
                                 </span>
                             </div>
                         </div>
 
-                        <div class="form-group" [ngClass]="{'has-error': skill.get('proficiency').invalid && skill.get('proficiency').touched}">
+                        <div class="form-group"
+                            [ngClass]="{'has-error': skill.get('proficiency').invalid && skill.get('proficiency').touched}">
                             <label class="col-md-2 control-label">
                                 Proficiency
                             </label>
@@ -128,7 +135,8 @@
                                     <input type="radio" value="Advance" formControlName="proficiency">
                                     Advance
                                 </label>
-                                <span class="help-block" *ngIf="skill.get('proficiency').errors?.required && skill.get('proficiency').touched">
+                                <span class="help-block"
+                                    *ngIf="skill.get('proficiency').errors?.required && skill.get('proficiency').touched">
                                     Proficiency is required.
                                 </span>
                             </div>
