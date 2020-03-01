@@ -4,7 +4,7 @@
             "id": 1,
             "fullName": "Vishal",
             "contactPreference": "email",
-            "email": "abc@gmail.com",
+            "email": "abc@yahoo.com",
             "phone": "1234567890",
             "skills": [
                 {
@@ -23,7 +23,7 @@
             "id": 2,
             "fullName": "Vaibhav",
             "contactPreference": "email",
-            "email": "xyz@gmail.com",
+            "email": "xyz@yahoo.com",
             "phone": "0987654321",
             "skills": [
                 {
