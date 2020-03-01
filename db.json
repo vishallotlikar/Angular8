@@ -1,0 +1,47 @@
+{
+    "employees": [
+        {
+            "id": 1,
+            "fullName": "Vishal",
+            "contactPreference": "email",
+            "email": "abc@gmail.com",
+            "phone": "1234567890",
+            "skills": [
+                {
+                    "skillName": "C#",
+                    "expreienceInYears": 1,
+                    "proficiency": "Beginner"
+                },
+                {
+                    "skillName": "Java",
+                    "expreienceInYears": 2,
+                    "proficiency": "Intermediate"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "fullName": "Vaibhav",
+            "contactPreference": "email",
+            "email": "xyz@gmail.com",
+            "phone": "0987654321",
+            "skills": [
+                {
+                    "skillName": "Angular",
+                    "expreienceInYears": 1,
+                    "proficiency": "Beginner"
+                },
+                {
+                    "skillName": "HTML",
+                    "expreienceInYears": 2,
+                    "proficiency": "Intermediate"
+                },
+                {
+                    "skillName": "LINQ",
+                    "expreienceInYears": 3,
+                    "proficiency": "Advanced"
+                }
+            ]
+        }
+    ]
+}
