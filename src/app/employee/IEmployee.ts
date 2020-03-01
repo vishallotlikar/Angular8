@@ -6,5 +6,5 @@ export interface IEmployee {
     email: string;
     phone?: number;
     contactPreference: string;
-    skill: ISkill[];
+    skills: ISkill[];
 }

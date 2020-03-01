@@ -9,12 +9,12 @@
             "skills": [
                 {
                     "skillName": "C#",
-                    "expreienceInYears": 1,
+                    "experienceInYears": 1,
                     "proficiency": "Beginner"
                 },
                 {
                     "skillName": "Java",
-                    "expreienceInYears": 2,
+                    "experienceInYears": 2,
                     "proficiency": "Intermediate"
                 }
             ]
@@ -28,18 +28,18 @@
             "skills": [
                 {
                     "skillName": "Angular",
-                    "expreienceInYears": 1,
+                    "experienceInYears": 1,
                     "proficiency": "Beginner"
                 },
                 {
                     "skillName": "HTML",
-                    "expreienceInYears": 2,
+                    "experienceInYears": 2,
                     "proficiency": "Intermediate"
                 },
                 {
                     "skillName": "LINQ",
-                    "expreienceInYears": 3,
-                    "proficiency": "Advanced"
+                    "experienceInYears": 3,
+                    "proficiency": "Advance"
                 }
             ]
         }
