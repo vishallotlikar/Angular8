@@ -42,6 +42,20 @@
           "proficiency": "Advance"
         }
       ]
+    },
+    {
+      "id": 3,
+      "fullName": "David",
+      "contactPreference": "email",
+      "email": "a@gmail.com",
+      "phone": "9999999999",
+      "skills": [
+        {
+          "skillName": "C#",
+          "experienceInYears": "5",
+          "proficiency": "Advance"
+        }
+      ]
     }
   ]
 }

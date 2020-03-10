@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 export class CreateEmployeeComponent implements OnInit {
   employeeForm: FormGroup;
   employee: IEmployee;
+  pageTitle: string;
   //fullNameLength = 0;
 
   validationMessages = {
@@ -44,9 +45,9 @@ export class CreateEmployeeComponent implements OnInit {
   };
 
   constructor(private fb: FormBuilder,
-              private route: ActivatedRoute,
-              private employeeService: EmployeeService,
-              private router: Router) { }
+    private route: ActivatedRoute,
+    private employeeService: EmployeeService,
+    private router: Router) { }
 
   ngOnInit() {
     // this.employeeForm = new FormGroup({
@@ -90,6 +91,17 @@ export class CreateEmployeeComponent implements OnInit {
       const empId = +params.get('id');
       if (empId) {
         this.getEmployee(empId);
+        this.pageTitle = 'Edit Employee';
+      } else {
+        this.employee = {
+          id: null,
+          fullName: '',
+          contactPreference: '',
+          email: '',
+          phone: null,
+          skills: []
+        };
+        this.pageTitle = 'Create Employee'
       }
     })
   }
@@ -118,7 +130,7 @@ export class CreateEmployeeComponent implements OnInit {
     this.employeeForm.setControl('skills', this.setExistingSkills(employee.skills))
   }
 
-  setExistingSkills(skillSets: ISkill[]): FormArray{
+  setExistingSkills(skillSets: ISkill[]): FormArray {
     const formArray = new FormArray([]);
     skillSets.forEach(s => {
       formArray.push(this.fb.group({
@@ -168,7 +180,7 @@ export class CreateEmployeeComponent implements OnInit {
       this.formErrors[key] = '';
       //abstractControl.disable()
       // console.log('Key = '+ key + 'Value = ' + abstractControl.value)
-      if (abstractControl && !abstractControl.valid && 
+      if (abstractControl && !abstractControl.valid &&
         (abstractControl.touched || abstractControl.dirty || abstractControl.value !== '')) {
         const messages = this.validationMessages[key];
         // console.log(messages);
@@ -209,12 +221,19 @@ export class CreateEmployeeComponent implements OnInit {
 
     console.log(this.employeeForm.controls.fullName.touched)
     console.log(this.employeeForm.get("fullName").value) */
-    
+
     this.mapFormValuesToEmployeeModel();
-    this.employeeService.updateEmployee(this.employee).subscribe(
-      () => this.router.navigate(['list']),
-      (err: any) => console.log(err)
-    );
+    if (this.employee.id) {
+      this.employeeService.updateEmployee(this.employee).subscribe(
+        () => this.router.navigate(['list']),
+        (err: any) => console.log(err)
+      );
+    } else {
+      this.employeeService.addEmployee(this.employee).subscribe(
+        () => this.router.navigate(['list']),
+        (err: any) => console.log(err)
+      );
+    }
   }
 
   mapFormValuesToEmployeeModel() {
@@ -240,7 +259,7 @@ function matchEmail(group: AbstractControl): { [key: string]: any } | null {
   const emailControl = group.get('email');
   const confirmEmailControl = group.get('confirmEmail');
 
-  if (emailControl.value === confirmEmailControl.value || 
+  if (emailControl.value === confirmEmailControl.value ||
     (confirmEmailControl.pristine && confirmEmailControl.value === '')) {
     return null;
   } else {
