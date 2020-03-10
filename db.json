@@ -1,47 +1,47 @@
 {
-    "employees": [
+  "employees": [
+    {
+      "id": 1,
+      "fullName": "Vishal Lo",
+      "contactPreference": "email",
+      "email": "xyz@gmail.com",
+      "phone": "1234567898",
+      "skills": [
         {
-            "id": 1,
-            "fullName": "Vishal",
-            "contactPreference": "email",
-            "email": "abc@yahoo.com",
-            "phone": "1234567890",
-            "skills": [
-                {
-                    "skillName": "C#",
-                    "experienceInYears": 1,
-                    "proficiency": "Beginner"
-                },
-                {
-                    "skillName": "Java",
-                    "experienceInYears": 2,
-                    "proficiency": "Intermediate"
-                }
-            ]
+          "skillName": "C#",
+          "experienceInYears": 1,
+          "proficiency": "Beginner"
         },
         {
-            "id": 2,
-            "fullName": "Vaibhav",
-            "contactPreference": "email",
-            "email": "xyz@yahoo.com",
-            "phone": "0987654321",
-            "skills": [
-                {
-                    "skillName": "Angular",
-                    "experienceInYears": 1,
-                    "proficiency": "Beginner"
-                },
-                {
-                    "skillName": "HTML",
-                    "experienceInYears": 2,
-                    "proficiency": "Intermediate"
-                },
-                {
-                    "skillName": "LINQ",
-                    "experienceInYears": 3,
-                    "proficiency": "Advance"
-                }
-            ]
+          "skillName": "Java",
+          "experienceInYears": 2,
+          "proficiency": "Intermediate"
         }
-    ]
+      ]
+    },
+    {
+      "id": 2,
+      "fullName": "Vaibhav",
+      "contactPreference": "email",
+      "email": "xyz@yahoo.com",
+      "phone": "0987654321",
+      "skills": [
+        {
+          "skillName": "Angular",
+          "experienceInYears": 1,
+          "proficiency": "Beginner"
+        },
+        {
+          "skillName": "HTML",
+          "experienceInYears": 2,
+          "proficiency": "Intermediate"
+        },
+        {
+          "skillName": "LINQ",
+          "experienceInYears": 3,
+          "proficiency": "Advance"
+        }
+      ]
+    }
+  ]
 }
