@@ -18,9 +18,9 @@ import { PageNotFoundComponent } from './page-not-found.component'
   ],
   imports: [
     BrowserModule,
+    EmployeeModule,
     AppRoutingModule,
-    HttpClientModule,
-    EmployeeModule
+    HttpClientModule
   ],
   providers: [EmployeeService],
   bootstrap: [AppComponent]
